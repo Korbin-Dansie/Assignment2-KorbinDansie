@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Die Guess Game" Height="500" Width="400" Icon="/favicon.ico" ResizeMode="NoResize">
     <Grid>
-        <Rectangle HorizontalAlignment="Left" Height="80" Margin="20,24,0,0" Stroke="Black" VerticalAlignment="Top" Width="180"/>
+        <Rectangle x:Name="rectGameInfo" HorizontalAlignment="Left" Height="80" Margin="20,24,0,0" Stroke="Black" VerticalAlignment="Top" Width="180"/>
         <TextBlock x:Name="tblockTimesPlayedString" HorizontalAlignment="Left" Margin="25,33,0,0" TextWrapping="Wrap" Text="Number of Times Played:" VerticalAlignment="Top"/>
         <TextBlock x:Name="tblockTimesWonString" HorizontalAlignment="Left" Margin="25,54,0,0" TextWrapping="Wrap" Text="Number of Times Won:" VerticalAlignment="Top"/>
         <TextBlock x:Name="tblockTimesLostString"  HorizontalAlignment="Left" Margin="25,75,0,0" TextWrapping="Wrap" Text="Number of Times Lost:" VerticalAlignment="Top"/>
@@ -15,11 +15,15 @@
         <TextBlock x:Name="tblockTimesWon" HorizontalAlignment="Left" Margin="163,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="0" Width="19.41" Height="15.96" TextAlignment="Right"/>
         <TextBlock x:Name="tblockTimesLost" HorizontalAlignment="Left" Margin="163,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="0" Width="19.41" Height="15.96" TextAlignment="Right"/>
         <TextBlock x:Name="tblockGameInfo" HorizontalAlignment="Left" Margin="30,18,0,0" TextWrapping="Wrap" Text="Game Info" VerticalAlignment="Top" Foreground="Black" Background="White" FontSize="8" Padding="2,0,2,0"/>
+        
         <TextBlock x:Name="tblockEnterGuess" HorizontalAlignment="Left" Margin="25,144,0,0" TextWrapping="Wrap" Text="Enter your guess (1-6):" VerticalAlignment="Top" Height="17.96"/>
-        <TextBox x:Name="tbRollGuess" HorizontalAlignment="Left" Margin="162,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="38" Background="{x:Null}" TextAlignment="Center" RenderTransformOrigin="0.816,1.116" MaxLength="1" MaxLines="1"/>
+        <TextBox x:Name="tbRollGuess" HorizontalAlignment="Left" Margin="162,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="38" Background="{x:Null}" TextAlignment="Center" RenderTransformOrigin="0.816,1.116" MaxLength="1" MaxLines="1" TextChanged="tbRollGuess_TextChanged"/>
+        <TextBlock x:Name="tbRollGuessErrorMessage" HorizontalAlignment="Left" Margin="205,145,0,0" TextWrapping="Wrap" Text="Please enter a number from 1-6" VerticalAlignment="Top" Width="180" Foreground="#FFD9534F" Initialized="tbRollGuessErrorMessage_Initialized"/>
+
         <Image x:Name="imageDie" HorizontalAlignment="Left" Height="82" Margin="20,184,0,0" VerticalAlignment="Top" Width="82" Stretch="Fill" Source="/Images/die1.gif"/>
         <Button x:Name="btnRoll" Content="Roll" HorizontalAlignment="Left" Margin="163,194,0,0" VerticalAlignment="Top" Opacity="0.99" Width="60" Height="20" Click="btnRoll_Click"/>
         <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="163,242,0,0" VerticalAlignment="Top" Opacity="0.99" Width="60" Height="20"/>
+
         <Grid x:Name="gridDiceResults" Margin="10,284,10,5" Width="380" ScrollViewer.VerticalScrollBarVisibility="Disabled">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="7*"/>
@@ -46,12 +50,12 @@
             <TextBlock x:Name="tbFaceFour" HorizontalAlignment="Center" Text="4" TextWrapping="Wrap" Grid.Row="4" VerticalAlignment="Center"/>
             <TextBlock x:Name="tbFaceFive" HorizontalAlignment="Center" Text="5" TextWrapping="Wrap" Grid.Row="5" VerticalAlignment="Center"/>
             <TextBlock x:Name="tbFaceSix" HorizontalAlignment="Center" Text="6" TextWrapping="Wrap" Grid.Row="6" VerticalAlignment="Center"/>
-            <TextBlock x:Name="tbFrequencyOne" HorizontalAlignment="Center" Text="0" TextWrapping="Wrap" Grid.Row="1" VerticalAlignment="Center" Grid.Column="1"/>
-            <TextBlock x:Name="tbFrequencyTwo" HorizontalAlignment="Center" Text="0" TextWrapping="Wrap" Grid.Row="2" VerticalAlignment="Center" Grid.Column="1"/>
-            <TextBlock x:Name="tbFrequencyThree" HorizontalAlignment="Center" Text="0" TextWrapping="Wrap" Grid.Row="3" VerticalAlignment="Center" Grid.Column="1"/>
-            <TextBlock x:Name="tbFrequencyFour" HorizontalAlignment="Center" Text="0" TextWrapping="Wrap" Grid.Row="4" VerticalAlignment="Center" Grid.Column="1"/>
-            <TextBlock x:Name="tbFrequencyFive" HorizontalAlignment="Center" Text="0" TextWrapping="Wrap" Grid.Row="5" VerticalAlignment="Center" Grid.Column="1"/>
-            <TextBlock x:Name="tbFrequencySix" HorizontalAlignment="Center" Text="0" TextWrapping="Wrap" Grid.Row="6" VerticalAlignment="Center" Grid.Column="1"/>
+            <TextBlock x:Name="tbFrequencyOne" Text="0" TextWrapping="Wrap" Grid.Row="1" VerticalAlignment="Center" Grid.Column="1" TextAlignment="Right" Padding="10,0,10,0"/>
+            <TextBlock x:Name="tbFrequencyTwo" Text="0" TextWrapping="Wrap" Grid.Row="2" VerticalAlignment="Center" Grid.Column="1" TextAlignment="Right" Padding="10,0,10,0"/>
+            <TextBlock x:Name="tbFrequencyThree" Text="0" TextWrapping="Wrap" Grid.Row="3" VerticalAlignment="Center" Grid.Column="1" TextAlignment="Right" Padding="10,0,10,0"/>
+            <TextBlock x:Name="tbFrequencyFour" Text="0" TextWrapping="Wrap" Grid.Row="4" VerticalAlignment="Center" Grid.Column="1" TextAlignment="Right" Padding="10,0,10,0"/>
+            <TextBlock x:Name="tbFrequencyFive" Text="0" TextWrapping="Wrap" Grid.Row="5" VerticalAlignment="Center" Grid.Column="1" Padding="10,0,10,0" TextAlignment="Right"/>
+            <TextBlock x:Name="tbFrequencySix" Text="0" TextWrapping="Wrap" Grid.Row="6" VerticalAlignment="Center" Grid.Column="1" Padding="10,0,10,0" TextAlignment="Right"/>
             <TextBlock x:Name="tbPercentOne" Text="0.00%" TextWrapping="Wrap" Grid.Row="1" VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Center" Width="44.77" TextAlignment="Right"/>
             <TextBlock x:Name="tbPercentTwo" Text="0.00%" TextWrapping="Wrap" Grid.Row="2" VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Center" Width="44.77" TextAlignment="Right"/>
             <TextBlock x:Name="tbPercentThree" Text="0.00%" TextWrapping="Wrap" Grid.Row="3" VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Center" Width="44.77" TextAlignment="Right"/>
