@@ -1,11 +1,14 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Net.Cache;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -33,23 +36,24 @@ namespace Assignment2_KorbinDansie
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnRoll_Click(object sender, RoutedEventArgs e)
+        private async void btnRoll_Click(object sender, RoutedEventArgs e)
         {
             Random rnd = new Random();
 
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 3; i++)
             {
-              
 
-                //Uri uri= new Uri($"file:///{Environment.CurrentDirectory}/Images/die2.gif", UriKind.RelativeOrAbsolute);
-                Uri uri= new Uri($"/Images/die{rnd.Next(1, 7)}.gif", UriKind.Relative);
+                imageDie.Source = new BitmapImage(new Uri($"/Images/die{rnd.Next(1, 7)}.gif", UriKind.Relative));
+                await Task.Delay(300);
+                //Thread.Sleep(300);
 
-                BitmapImage bitmap = new BitmapImage(uri);
-                
-                imageDie.Source = bitmap;
-                //BitmapSource bitmapSource = new BitmapSource(bitmap);
-                Thread.Sleep(300);
             }
+        }
+
+
+        private void UIRollDice(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
