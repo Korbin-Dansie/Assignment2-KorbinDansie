@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>Assignment2_KorbinDansie</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="favicon.ico" />
+    <None Remove="Images\die1.gif" />
+    <None Remove="Images\die2.gif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="favicon.ico" />
+    <Resource Include="Images\die1.gif" />
+    <Resource Include="Images\die2.gif" />
+    <Resource Include="Images\die3.gif" />
+    <Resource Include="Images\die4.gif" />
+    <Resource Include="Images\die5.gif" />
+    <Resource Include="Images\die6.gif" />
+
+  </ItemGroup>
+
+</Project>
