@@ -1,26 +1,8 @@
-﻿using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.Common;
-using System.Linq;
-using System.Net;
-using System.Net.Cache;
-using System.Text;
-using System.Threading;
+﻿using System;
 using System.Threading.Tasks;
-using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-// Notes max 
 
 
 namespace Assignment2_KorbinDansie
@@ -41,18 +23,11 @@ namespace Assignment2_KorbinDansie
         private const string DIE_IMAGE_PATH = "/Images/die"; // Relitave path to the images
         private const string DIE_IMAGE_EXTENTION = ".gif"; // Relitave path to the images
 
+
+        private const int NUMBER_OF_GRID_ROWS = 7;
+        private const int NUMBER_OF_GRID_COLUMNS= 4;
+
         #endregion Attributes
-
-
-        #region Enum
-        enum eGirdColumns
-        {
-            Face,
-            Frequency,
-            Percent,
-            NumberOfTimesGuessed
-        }
-        #endregion Enum
 
         public MainWindow()
         {
@@ -71,12 +46,12 @@ namespace Assignment2_KorbinDansie
 
             // Animate the die
             int nextDiceNumber;
-            for (int i = 0; i < rnd.Next(2, 3); i++)
+            for (int i = 0; i < rnd.Next(4, 7) /*How many animated die rolls*/; i++)
             {
                 // Pick a different image for the die so its not the same (if two can't be two again)
                 do
                 {
-                    nextDiceNumber = rnd.Next(1, 7);
+                    nextDiceNumber = rnd.Next(DIE_LOW_NUMBER, DIE_HIGH_NUMBER + 1);
                 } while (currentDieNumber == nextDiceNumber);
 
                 // Set the current die number to the one just rolled
@@ -93,7 +68,6 @@ namespace Assignment2_KorbinDansie
 
             // Enable the UI
             setUIEnable(true);
-
         }
 
         /// <summary>
@@ -113,7 +87,7 @@ namespace Assignment2_KorbinDansie
         private void updateUI()
         {
             updateGameInfo();
-            updategridDiceResults();
+            updategridDiceResults(); // Needs to come after updateGameInfo so Total times played is the correct number.
         }
 
         /// <summary>
@@ -166,41 +140,84 @@ namespace Assignment2_KorbinDansie
 
             int.TryParse(tblockTimesPlayed.Text, out numTimesPlayed);
 
-            // Convert int to spelled out version
-            string[] single_digits = new string[] {
-            "Zero", "One", "Two",   "Three", "Four",
-            "Five", "Six", "Seven", "Eight", "Nine"
-            };
+            // Create an Textblock element to hold the child of the grid
+            TextBlock currentBlock;
 
             // Loop though the grid
-            // Loop Columns 
-            for (int col = 1; col < 4; col++)
+            for (int row = 1; row < NUMBER_OF_GRID_ROWS; row++)
             {
-                for (int row = 1; row < 7; row++)
+                for (int col = 2; col < NUMBER_OF_GRID_COLUMNS + 1; col++)
                 {
+
+                    // Update the Textblocks info
                     switch (col)
                     {
-                        case 1: // Frequency
+                        case 2: // Frequency
+
                             // Add one to the row of the current die number
                             if (row == currentDieNumber)
                             {
-                                // Children are aranged by Headers, Then Colums going down. Example (Number of Times Guessed = 3, Face 2 = 5)
-                                TextBlock currentBlock = gridDiceResults.Children[(col + 1) *  5 + (row - 1)] as TextBlock;
+                                // Get the Textblock in the grid
+                                currentBlock = getGridElementAt(row, col);
+
                                 int.TryParse(currentBlock.Text, out value);
                                 value++;
                                 currentBlock.Text = value.ToString();
                             }
+                            break;
 
+                        case 3: // Percent
+                            // Get the Textblock in the grid in col frequency
+                            currentBlock = getGridElementAt(row, 2);
+                            int.TryParse(currentBlock.Text, out value);
+
+                            // Get percent by frequency / totalTimesPlayed
+                            double percent = (double)value / numTimesPlayed * 100;
+
+                            // Set it to percent col
+                            currentBlock = getGridElementAt(row, col);
+                            currentBlock.Text = String.Format("{0:0.00}%", percent);
                             break;
-                        case 2: // Percent
-                            break;
-                        case 3: // Number Of Times Guessed
+
+                        case 4: // Number Of Times Guessed
+                            if (row == guessedDieNumber)
+                            {
+                                // Get the Textblock in the grid
+                                currentBlock = getGridElementAt(row, col);
+
+                                int.TryParse(currentBlock.Text, out value);
+                                value++;
+                                currentBlock.Text = value.ToString();
+                            }
                             break;
                     }
                 }
             }
+        }
 
+        /// <summary>
+        /// Get the element in the grid at a certain row and col
+        /// </summary>
+        /// <param name="row">Which row of the body to return 1 - 6</param>
+        /// <param name="col">Which colum to return 1 - 4</param>
+        /// <returns></returns>
+        TextBlock getGridElementAt(int row, int column)
+        {
+            // Children are aranged by Headers, Then Colums going down. Example (Number of Times Guessed = 3, Face 2 = 5)
+            // Col for the correct colum, NUMBER_OF_GRID_ROWS (7) - the header row, row starts for the correct row,
+            // -3 for number of headers,
+            // ALL counting starts at one 
 
+            /* Example: 
+             *  Face    Frequency
+             *  (1,1)   (2,1)
+             *  (1,6)   (2,2)
+             *  (1,2)   (2,3)
+             *  (1,3)   (2,4)
+             *  (1,4)   (2,5)
+             *  (1,5)   (2,6)
+             */
+            return gridDiceResults.Children[(column * (NUMBER_OF_GRID_ROWS - 1)) + row - (NUMBER_OF_GRID_COLUMNS - 1)] as TextBlock;
         }
 
         /// <summary>
@@ -217,7 +234,7 @@ namespace Assignment2_KorbinDansie
             {
 
                 // If entered a correct value update our guessed number
-                if (value >= 1 && value <= 6)
+                if (value >= DIE_LOW_NUMBER && value <= DIE_HIGH_NUMBER)
                 {
                     guessedDieNumber = value;
                     tbRollGuessErrorMessage.Visibility = Visibility.Hidden;
@@ -250,5 +267,82 @@ namespace Assignment2_KorbinDansie
         {
             tbRollGuessErrorMessage.Visibility = Visibility.Hidden;
         }
+
+        /// <summary>
+        /// On click reset the board
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+            resetBoard();
+        }
+
+        /// <summary>
+        /// Reset the board
+        /// </summary>
+        private void resetBoard()
+        {
+            resetGameInfo();
+            resetDie();
+            resetGrid();
+        }
+
+        /// <summary>
+        /// Reset the gameInfo top section
+        /// </summary>
+        private void resetGameInfo()
+        {
+            tblockTimesPlayed.Text = "0";
+            tblockTimesWon.Text = "0";
+            tblockTimesLost.Text = "0";
+        }
+
+        /// <summary>
+        /// Reset the die image and input
+        /// </summary>
+        private void resetDie()
+        {
+            tbRollGuess.Text = "";
+            tbRollGuessErrorMessage.Visibility = Visibility.Hidden;
+
+            currentDieNumber = 1;
+            guessedDieNumber = 0;
+
+            Uri uri = new Uri(DIE_IMAGE_PATH + currentDieNumber + DIE_IMAGE_EXTENTION, UriKind.Relative);
+            imageDie.Source = new BitmapImage(uri);
+        }
+
+        /// <summary>
+        /// Reset the grid info
+        /// </summary>
+        private void resetGrid()
+        {
+            int value = 0;
+
+            // Create an Textblock element to hold the child of the grid
+            TextBlock currentBlock;
+
+            for (int row = 1; row < NUMBER_OF_GRID_ROWS; row++)
+            {
+                for (int col = 2; col < NUMBER_OF_GRID_COLUMNS + 1; col++)
+                {
+                    switch (col)
+                    {
+                        case 2: // Frequency
+                        case 4: // Number Of Times Guessed
+                            currentBlock = getGridElementAt(row, col);
+                            currentBlock.Text = value.ToString();
+                            break;
+
+                        case 3: // Percent
+                            currentBlock = getGridElementAt(row, col);
+                            currentBlock.Text = String.Format("{0:0.00}%", 0);
+                            break;
+                    }
+                }
+            }
+        }
+
     }
 }

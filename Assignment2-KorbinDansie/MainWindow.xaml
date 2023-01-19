@@ -22,7 +22,7 @@
 
         <Image x:Name="imageDie" HorizontalAlignment="Left" Height="82" Margin="20,184,0,0" VerticalAlignment="Top" Width="82" Stretch="Fill" Source="/Images/die1.gif"/>
         <Button x:Name="btnRoll" Content="Roll" HorizontalAlignment="Left" Margin="163,194,0,0" VerticalAlignment="Top" Opacity="0.99" Width="60" Height="20" Click="btnRoll_Click"/>
-        <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="163,242,0,0" VerticalAlignment="Top" Opacity="0.99" Width="60" Height="20"/>
+        <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="163,242,0,0" VerticalAlignment="Top" Opacity="0.99" Width="60" Height="20" Click="btnReset_Click"/>
 
         <Grid x:Name="gridDiceResults" Margin="10,284,10,5" Width="380" ScrollViewer.VerticalScrollBarVisibility="Disabled">
             <Grid.ColumnDefinitions>
