@@ -17,7 +17,7 @@
         <TextBlock x:Name="tblockGameInfo" HorizontalAlignment="Left" Margin="30,18,0,0" TextWrapping="Wrap" Text="Game Info" VerticalAlignment="Top" Foreground="Black" Background="White" FontSize="8" Padding="2,0,2,0"/>
         
         <TextBlock x:Name="tblockEnterGuess" HorizontalAlignment="Left" Margin="25,144,0,0" TextWrapping="Wrap" Text="Enter your guess (1-6):" VerticalAlignment="Top" Height="17.96"/>
-        <TextBox x:Name="tbRollGuess" HorizontalAlignment="Left" Margin="162,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="38" Background="{x:Null}" TextAlignment="Center" RenderTransformOrigin="0.816,1.116" MaxLength="1" MaxLines="1" TextChanged="tbRollGuess_TextChanged"/>
+        <TextBox x:Name="tbRollGuess" HorizontalAlignment="Left" Margin="162,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="38" Background="{x:Null}" TextAlignment="Center" RenderTransformOrigin="0.816,1.116" MaxLength="1" MaxLines="1" TextChanged="tbRollGuess_TextChanged" GotFocus="tbRollGuess_GotFocus"/>
         <TextBlock x:Name="tbRollGuessErrorMessage" HorizontalAlignment="Left" Margin="205,145,0,0" TextWrapping="Wrap" Text="Please enter a number from 1-6" VerticalAlignment="Top" Width="180" Foreground="#FFD9534F" Initialized="tbRollGuessErrorMessage_Initialized"/>
 
         <Image x:Name="imageDie" HorizontalAlignment="Left" Height="82" Margin="20,184,0,0" VerticalAlignment="Top" Width="82" Stretch="Fill" Source="/Images/die1.gif"/>

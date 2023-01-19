@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
 
@@ -25,7 +26,7 @@ namespace Assignment2_KorbinDansie
 
 
         private const int NUMBER_OF_GRID_ROWS = 7;
-        private const int NUMBER_OF_GRID_COLUMNS= 4;
+        private const int NUMBER_OF_GRID_COLUMNS = 4;
 
         #endregion Attributes
 
@@ -146,13 +147,13 @@ namespace Assignment2_KorbinDansie
             // Loop though the grid
             for (int row = 1; row < NUMBER_OF_GRID_ROWS; row++)
             {
-                for (int col = 2; col < NUMBER_OF_GRID_COLUMNS + 1; col++)
+                for (int col = 1; col < NUMBER_OF_GRID_COLUMNS; col++)
                 {
 
                     // Update the Textblocks info
                     switch (col)
                     {
-                        case 2: // Frequency
+                        case 1: // Frequency
 
                             // Add one to the row of the current die number
                             if (row == currentDieNumber)
@@ -166,9 +167,9 @@ namespace Assignment2_KorbinDansie
                             }
                             break;
 
-                        case 3: // Percent
+                        case 2: // Percent
                             // Get the Textblock in the grid in col frequency
-                            currentBlock = getGridElementAt(row, 2);
+                            currentBlock = getGridElementAt(row, 1);
                             int.TryParse(currentBlock.Text, out value);
 
                             // Get percent by frequency / totalTimesPlayed
@@ -179,7 +180,7 @@ namespace Assignment2_KorbinDansie
                             currentBlock.Text = String.Format("{0:0.00}%", percent);
                             break;
 
-                        case 4: // Number Of Times Guessed
+                        case 3: // Number Of Times Guessed
                             if (row == guessedDieNumber)
                             {
                                 // Get the Textblock in the grid
@@ -204,20 +205,18 @@ namespace Assignment2_KorbinDansie
         TextBlock getGridElementAt(int row, int column)
         {
             // Children are aranged by Headers, Then Colums going down. Example (Number of Times Guessed = 3, Face 2 = 5)
-            // Col for the correct colum, NUMBER_OF_GRID_ROWS (7) - the header row, row starts for the correct row,
-            // -3 for number of headers,
-            // ALL counting starts at one 
+            // Col for the correct colum, NUMBER_OF_GRID_ROWS - the header row, row for the correct row, NUMBER_OF_GRID_COLUMNS - 1 for number of headers
 
-            /* Example: 
+            /* Example: (Row, Col)
              *  Face    Frequency
-             *  (1,1)   (2,1)
-             *  (1,6)   (2,2)
-             *  (1,2)   (2,3)
-             *  (1,3)   (2,4)
-             *  (1,4)   (2,5)
-             *  (1,5)   (2,6)
+             *  (1,0)   (1,1)
+             *  (2,0)   (2,1)
+             *  (3,0)   (3,1)
+             *  (4,0)   (4,1)
+             *  (5,0)   (5,1)
+             *  (6,0)   (6,1)
              */
-            return gridDiceResults.Children[(column * (NUMBER_OF_GRID_ROWS - 1)) + row - (NUMBER_OF_GRID_COLUMNS - 1)] as TextBlock;
+            return gridDiceResults.Children[(column * (NUMBER_OF_GRID_ROWS - 1)) + row + (NUMBER_OF_GRID_COLUMNS - 1)] as TextBlock;
         }
 
         /// <summary>
@@ -325,24 +324,52 @@ namespace Assignment2_KorbinDansie
 
             for (int row = 1; row < NUMBER_OF_GRID_ROWS; row++)
             {
-                for (int col = 2; col < NUMBER_OF_GRID_COLUMNS + 1; col++)
+                for (int col = 1; col < NUMBER_OF_GRID_COLUMNS; col++)
                 {
                     switch (col)
                     {
-                        case 2: // Frequency
-                        case 4: // Number Of Times Guessed
+                        case 1: // Frequency
+                        case 3: // Number Of Times Guessed
                             currentBlock = getGridElementAt(row, col);
                             currentBlock.Text = value.ToString();
                             break;
 
-                        case 3: // Percent
+                        case 2: // Percent
                             currentBlock = getGridElementAt(row, col);
                             currentBlock.Text = String.Format("{0:0.00}%", 0);
                             break;
                     }
                 }
             }
+
+            ////
+            //for (int row = 0; row < NUMBER_OF_GRID_ROWS; row++)
+            //{
+            //    for (int col = 0; col < NUMBER_OF_GRID_COLUMNS; col++)
+            //    {
+            //        currentBlock = getGridElementAt(row, col);
+            //        currentBlock.Text = $"{row}, {col}";
+                    
+            //    }
+            //}
+            ////
         }
 
+
+
+        /// <summary>
+        /// Clear text box when in focus. If tab was pressed only select the text
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tbRollGuess_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (!Keyboard.PrimaryDevice.IsKeyDown(Key.Tab))
+            {
+                tbRollGuess.Text = String.Empty;
+            }
+
+            tbRollGuess.SelectAll();
+        }
     }
 }
