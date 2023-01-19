@@ -2,10 +2,8 @@
  * Author : Korbin Dansie
  * Created On : 1/16/2023
  * Last Modified On : 
- * Description : A die rolling game. If the user inputs nothing or incorrect value for the guess then it still rolls
- *                  however it does not count to wins or loses
+ * Description : A die rolling game. If the user inputs nothing or incorrect value for the guess then SHOULD NOT roll
 */
-
 
 using System;
 using System.Threading.Tasks;
@@ -78,6 +76,12 @@ namespace Assignment2_KorbinDansie
         /// <param name="e"></param>
         private async void btnRoll_Click(object sender, RoutedEventArgs e)
         {
+            //Check if user has inputed a valid number if not display an error
+            if (!checkUserInput())
+            {
+                return;
+            }
+
             // Disable the UI
             setUIEnable(false);
 
@@ -266,33 +270,27 @@ namespace Assignment2_KorbinDansie
         /// <param name="e"></param>
         private void tbRollGuess_TextChanged(object sender, TextChangedEventArgs e)
         {
-            int value;
-            if (int.TryParse(tbRollGuess.Text, out value))
+            // If user deletes the a valid number dont display an error message
+            if(tbRollGuess.Text == String.Empty)
             {
+                return;
+            }
+            checkUserInput();
+        }
 
-                // If entered a correct value update our guessed number
-                if (value >= DIE_LOW_NUMBER && value <= DIE_HIGH_NUMBER)
-                {
-                    guessedDieNumber = value;
-                    tbRollGuessErrorMessage.Visibility = Visibility.Hidden;
-                }
-                // Else they enterd a number not on the die
-                else
-                {
-                    tbRollGuessErrorMessage.Visibility = Visibility.Visible;
-                }
-            }
-            // If the text box is empty
-            else if (tbRollGuess.Text == "")
+        /// <summary>
+        /// Clear text box when in focus. If tab was pressed only select the text
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tbRollGuess_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (!Keyboard.IsKeyDown(Key.Tab))
             {
-                guessedDieNumber = 0;
-                tbRollGuessErrorMessage.Visibility = Visibility.Hidden;
+                tbRollGuess.Text = String.Empty;
             }
-            // Else they did not enter a number
-            else
-            {
-                tbRollGuessErrorMessage.Visibility = Visibility.Visible;
-            }
+
+            tbRollGuess.SelectAll();
         }
 
         /// <summary>
@@ -304,6 +302,32 @@ namespace Assignment2_KorbinDansie
         {
             tbRollGuessErrorMessage.Visibility = Visibility.Hidden;
         }
+
+        /// <summary>
+        /// Check user input from tbRollGuess. If invalid display error message
+        /// </summary>
+        /// <returns>If valid return true</returns>
+        private bool checkUserInput()
+        {
+            int value;
+            if (int.TryParse(tbRollGuess.Text, out value))
+            {
+
+                // If entered a correct value update our guessed number
+                if (value >= DIE_LOW_NUMBER && value <= DIE_HIGH_NUMBER)
+                {
+                    guessedDieNumber = value;
+                    tbRollGuessErrorMessage.Visibility = Visibility.Hidden;
+                    return true;
+                }
+            }
+
+            tbRollGuessErrorMessage.Visibility = Visibility.Visible;
+            guessedDieNumber = 0;
+            return false;
+        }
+
+
 
         /// <summary>
         /// On click reset the board
@@ -379,35 +403,6 @@ namespace Assignment2_KorbinDansie
                     }
                 }
             }
-
-            ////
-            //for (int row = 0; row < NUMBER_OF_GRID_ROWS; row++)
-            //{
-            //    for (int col = 0; col < NUMBER_OF_GRID_COLUMNS; col++)
-            //    {
-            //        currentBlock = getGridElementAt(row, col);
-            //        currentBlock.Text = $"{row}, {col}";
-                    
-            //    }
-            //}
-            ////
-        }
-
-
-
-        /// <summary>
-        /// Clear text box when in focus. If tab was pressed only select the text
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tbRollGuess_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (!Keyboard.PrimaryDevice.IsKeyDown(Key.Tab))
-            {
-                tbRollGuess.Text = String.Empty;
-            }
-
-            tbRollGuess.SelectAll();
         }
     }
 }
