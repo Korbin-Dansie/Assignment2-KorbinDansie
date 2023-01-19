@@ -342,17 +342,17 @@ namespace Assignment2_KorbinDansie
                 }
             }
 
-            ////
-            //for (int row = 0; row < NUMBER_OF_GRID_ROWS; row++)
-            //{
-            //    for (int col = 0; col < NUMBER_OF_GRID_COLUMNS; col++)
-            //    {
-            //        currentBlock = getGridElementAt(row, col);
-            //        currentBlock.Text = $"{row}, {col}";
-                    
-            //    }
-            //}
-            ////
+            // Test Begin
+            for (int row = 0; row < NUMBER_OF_GRID_ROWS; row++)
+            {
+                for (int col = 0; col < NUMBER_OF_GRID_COLUMNS; col++)
+                {
+                    currentBlock = getGridElementAt(row, col);
+                    currentBlock.Text = $"{row}, {col}";
+
+                }
+            }
+            // Test End
         }
 
 
