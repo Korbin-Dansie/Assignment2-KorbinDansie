@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+ * Author : Korbin Dansie
+ * Created On : 1/16/2023
+ * Last Modified On : 
+ * Description : A die rolling game. If the user inputs nothing or incorrect value for the guess then it still rolls
+ *                  however it does not count to wins or loses
+*/
+
+
+using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,18 +23,45 @@ namespace Assignment2_KorbinDansie
     public partial class MainWindow : Window
     {
         #region Attributes
+        /// <summary>
+        /// Variable for randomness
+        /// </summary>
         private Random rnd = new Random();
 
+        /// <summary>
+        /// Current Die displayed on the screen
+        /// </summary>
         private int currentDieNumber = 1; // If I change the start die picture I should change this variable also
+        /// <summary>
+        /// Current number that the user has guessed
+        /// </summary>
         private int guessedDieNumber = 0; // If zero then their is no guess
+
+        /// <summary>
+        /// Lowest number on the die
+        /// </summary>
         private const int DIE_LOW_NUMBER = 1;
+        /// <summary>
+        /// Highest number on the die
+        /// </summary>
         private const int DIE_HIGH_NUMBER = 6;
 
+        /// <summary>
+        /// Start of the relative path to find images plus name
+        /// </summary>
         private const string DIE_IMAGE_PATH = "/Images/die"; // Relitave path to the images
+        /// <summary>
+        /// Ending file extention for die images
+        /// </summary>
         private const string DIE_IMAGE_EXTENTION = ".gif"; // Relitave path to the images
 
-
+        /// <summary>
+        /// Number of rows in grid counting header row
+        /// </summary>
         private const int NUMBER_OF_GRID_ROWS = 7;
+        /// <summary>
+        /// Number of columns in the gird
+        /// </summary>
         private const int NUMBER_OF_GRID_COLUMNS = 4;
 
         #endregion Attributes
@@ -88,7 +124,7 @@ namespace Assignment2_KorbinDansie
         private void updateUI()
         {
             updateGameInfo();
-            updategridDiceResults(); // Needs to come after updateGameInfo so Total times played is the correct number.
+            updateGridDiceResults(); // Needs to come after updateGameInfo so Total times played is the correct number.
         }
 
         /// <summary>
@@ -133,7 +169,7 @@ namespace Assignment2_KorbinDansie
         /// <summary>
         /// Updates the Grid with all the results at the bottom of the board
         /// </summary>
-        private void updategridDiceResults()
+        private void updateGridDiceResults()
         {
             // Get number of times played to be used in Percent calculations
             int numTimesPlayed;
@@ -206,6 +242,8 @@ namespace Assignment2_KorbinDansie
         {
             // Children are aranged by Headers, Then Colums going down. Example (Number of Times Guessed = 3, Face 2 = 5)
             // Col for the correct colum, NUMBER_OF_GRID_ROWS - the header row, row for the correct row, NUMBER_OF_GRID_COLUMNS - 1 for number of headers
+
+            // Cannot update the header rows. Expect of the furthest one on the right which is (0,0)
 
             /* Example: (Row, Col)
              *  Face    Frequency
