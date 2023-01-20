@@ -216,7 +216,7 @@ namespace Assignment2_KorbinDansie
              *  (5,0)   (5,1)
              *  (6,0)   (6,1)
              */
-            return gridDiceResults.Children[(column * (NUMBER_OF_GRID_ROWS - 1)) + row + (NUMBER_OF_GRID_COLUMNS - 1)] as TextBlock;
+            return gridDiceResults.Children[(column * (NUMBER_OF_GRID_ROWS)) + row] as TextBlock;
         }
 
         /// <summary>
@@ -347,9 +347,12 @@ namespace Assignment2_KorbinDansie
             {
                 for (int col = 0; col < NUMBER_OF_GRID_COLUMNS; col++)
                 {
+                    if(col == 1 && row == 0)
+                    {
+                        int val = 0;
+                    }
                     currentBlock = getGridElementAt(row, col);
                     currentBlock.Text = $"{row}, {col}";
-
                 }
             }
             // Test End
