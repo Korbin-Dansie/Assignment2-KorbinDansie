@@ -41,27 +41,27 @@
                 <RowDefinition Height="27*"/>
             </Grid.RowDefinitions>
             <TextBlock x:Name="tbTableHeaderFace" HorizontalAlignment="Center" Text="Face" TextWrapping="Wrap"/>
-            <TextBlock x:Name="tbTableHeaderFrequency" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Frequency" Grid.Column="1"/>
-            <TextBlock x:Name="tbTableHeaderPercent" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Percent" Grid.Column="2"/>
-            <TextBlock x:Name="tbTableHeaderNumberOfTimesGuessed" TextWrapping="Wrap" Text="Number of Times Guessed" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Left" Padding="2,0,2,0" Margin="20,0,0,0"/>
             <TextBlock x:Name="tbFaceOne" HorizontalAlignment="Center" Text="1" TextWrapping="Wrap" Grid.Row="1" VerticalAlignment="Center"/>
             <TextBlock x:Name="tbFaceTwo" HorizontalAlignment="Center" Text="2" TextWrapping="Wrap" Grid.Row="2" VerticalAlignment="Center"/>
             <TextBlock x:Name="tbFaceThree" HorizontalAlignment="Center" Text="3" TextWrapping="Wrap" Grid.Row="3" VerticalAlignment="Center"/>
             <TextBlock x:Name="tbFaceFour" HorizontalAlignment="Center" Text="4" TextWrapping="Wrap" Grid.Row="4" VerticalAlignment="Center"/>
             <TextBlock x:Name="tbFaceFive" HorizontalAlignment="Center" Text="5" TextWrapping="Wrap" Grid.Row="5" VerticalAlignment="Center"/>
             <TextBlock x:Name="tbFaceSix" HorizontalAlignment="Center" Text="6" TextWrapping="Wrap" Grid.Row="6" VerticalAlignment="Center"/>
+            <TextBlock x:Name="tbTableHeaderFrequency" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Frequency" Grid.Column="1"/>
             <TextBlock x:Name="tbFrequencyOne" Text="0" TextWrapping="Wrap" Grid.Row="1" VerticalAlignment="Center" Grid.Column="1" TextAlignment="Right" Padding="10,0,10,0"/>
             <TextBlock x:Name="tbFrequencyTwo" Text="0" TextWrapping="Wrap" Grid.Row="2" VerticalAlignment="Center" Grid.Column="1" TextAlignment="Right" Padding="10,0,10,0"/>
             <TextBlock x:Name="tbFrequencyThree" Text="0" TextWrapping="Wrap" Grid.Row="3" VerticalAlignment="Center" Grid.Column="1" TextAlignment="Right" Padding="10,0,10,0"/>
             <TextBlock x:Name="tbFrequencyFour" Text="0" TextWrapping="Wrap" Grid.Row="4" VerticalAlignment="Center" Grid.Column="1" TextAlignment="Right" Padding="10,0,10,0"/>
             <TextBlock x:Name="tbFrequencyFive" Text="0" TextWrapping="Wrap" Grid.Row="5" VerticalAlignment="Center" Grid.Column="1" Padding="10,0,10,0" TextAlignment="Right"/>
             <TextBlock x:Name="tbFrequencySix" Text="0" TextWrapping="Wrap" Grid.Row="6" VerticalAlignment="Center" Grid.Column="1" Padding="10,0,10,0" TextAlignment="Right"/>
+            <TextBlock x:Name="tbTableHeaderPercent" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Percent" Grid.Column="2"/>
             <TextBlock x:Name="tbPercentOne" Text="0.00%" TextWrapping="Wrap" Grid.Row="1" VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Center" Width="44.77" TextAlignment="Right"/>
             <TextBlock x:Name="tbPercentTwo" Text="0.00%" TextWrapping="Wrap" Grid.Row="2" VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Center" Width="44.77" TextAlignment="Right"/>
             <TextBlock x:Name="tbPercentThree" Text="0.00%" TextWrapping="Wrap" Grid.Row="3" VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Center" Width="44.77" TextAlignment="Right"/>
             <TextBlock x:Name="tbPercentFour" Text="0.00%" TextWrapping="Wrap" Grid.Row="4" VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Center" Width="44.77" TextAlignment="Right"/>
             <TextBlock x:Name="tbPercentFive" Text="0.00%" TextWrapping="Wrap" Grid.Row="5" VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Center" Width="44.77" TextAlignment="Right"/>
             <TextBlock x:Name="tbPercentSix" Text="0.00%" TextWrapping="Wrap" Grid.Row="6" VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Center" Width="44.77" TextAlignment="Right"/>
+            <TextBlock x:Name="tbTableHeaderNumberOfTimesGuessed" TextWrapping="Wrap" Text="Number of Times Guessed" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Left" Padding="2,0,2,0" Margin="20,0,0,0"/>
             <TextBlock x:Name="tbNumberOfTimesGuessedOne" Text="0" TextWrapping="Wrap" Grid.Row="1" VerticalAlignment="Center" Grid.Column="3" HorizontalAlignment="Center" TextAlignment="Right" Width="19.41"/>
             <TextBlock x:Name="tbNumberOfTimesGuessedTwo" Text="0" TextWrapping="Wrap" Grid.Row="2" VerticalAlignment="Center" Grid.Column="3" HorizontalAlignment="Center" TextAlignment="Right" Width="19.41"/>
             <TextBlock x:Name="tbNumberOfTimesGuessedThree" Text="0" TextWrapping="Wrap" Grid.Row="3" VerticalAlignment="Center" Grid.Column="3" HorizontalAlignment="Center" TextAlignment="Right" Width="19.41"/>

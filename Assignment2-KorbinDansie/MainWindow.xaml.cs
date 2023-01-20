@@ -258,7 +258,7 @@ namespace Assignment2_KorbinDansie
              *  (5,0)   (5,1)
              *  (6,0)   (6,1)
              */
-            return gridDiceResults.Children[(column * (NUMBER_OF_GRID_ROWS - 1)) + row + (NUMBER_OF_GRID_COLUMNS - 1)] as TextBlock;
+            return gridDiceResults.Children[(column * (NUMBER_OF_GRID_ROWS)) + row] as TextBlock;
         }
 
         /// <summary>
